@@ -1,3 +1,14 @@
+# Project Specific
+/data
+/checkpoints
+/notebooks
+
+# MacOS & PyCharm
+.DS_store
+.DS_Store
+.idea/
+sync.sh
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
