@@ -226,6 +226,10 @@ class CustomTextCLIP(nn.Module):
         super().__init__()
         self.visual = _build_vision_tower(embed_dim, vision_cfg, quick_gelu, cast_dtype)
         self.text = _build_text_tower(embed_dim, text_cfg, quick_gelu, cast_dtype)
+        if isinstance(text_cfg, dict):
+            text_cfg = CLIPTextCfg(**text_cfg)
+        if text_cfg.hf_model_name:
+            self.use_st = text_cfg.hf_model_name == "sentence-transformers/sentence-t5-base"
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
 
     def lock_image_tower(self, unlocked_groups=0, freeze_bn_stats=False):
