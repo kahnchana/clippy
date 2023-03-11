@@ -1,13 +1,15 @@
-import os
-import glob
 import numpy as np
-from PIL import Image
-from matplotlib import pyplot as plt
+import torch
+import torch.nn.functional as F
+from einops import rearrange
+from tqdm import tqdm
 
-from .datasets import PascalDataset
+from open_clip import get_cast_dtype
+from training.precision import get_autocast
+from .datasets import voc_extended_classes
 
 
-class PascalEvaluator:
+class PascalMIoU:
 
     def __init__(self):
         self._num_classes = 20 + 1  # background
@@ -22,6 +24,7 @@ class PascalEvaluator:
 
     def update(self, prediction, label):
         self._num_examples += label.shape[0]
+        prediction[prediction >= self._num_classes] = 0
         mask = label < 255  # skip-pixel for VOC dataset
         indices = self._num_classes * label[mask] + prediction[mask]
         m = np.bincount(indices, minlength=self._num_classes ** 2).reshape(
@@ -40,61 +43,109 @@ class PascalEvaluator:
         return {"mIoU": np.nanmean(iou_list), "per_class": iou_list.tolist()}
 
 
-def load_pred_from_npy(path, resize):
-    pred = np.load(path)
-    pred_resized = [np.ones(resize) * 0.5, ]
-    for i in pred:
-        pred_resized.append(np.array(Image.fromarray(i).resize(tuple(reversed(resize)))))
-    pred_resized = np.stack(pred_resized, axis=0)
-    pred_resized = np.argmax(pred_resized, axis=0)
-    for idx, real_label in enumerate(sample[2]):
-        pred_resized[pred_resized == (idx + 1)] = real_label
-    return pred_resized
+def get_similarity(image_encodings, label_encodings, target_shape, interpolation="bilinear", do_argmax=False):
+    """
+
+    Args:
+        image_encodings:
+        label_encodings:
+        target_shape:
+        interpolation: nearest, bilinear
+        do_argmax:
+
+    Returns:
+
+    """
+    image_encodings = image_encodings.cpu()
+    label_encodings = label_encodings.cpu()
+
+    image_encodings = rearrange(
+        image_encodings, "b (h w) d -> d b h w", h=int(np.sqrt(image_encodings.shape[-2]))
+    )
+    # assuming square inputs & targets
+    scale_ratio = (target_shape[-2] / image_encodings.shape[-2],
+                   target_shape[-1] / image_encodings.shape[-1],)
+    temp_list = []
+    for i in image_encodings:
+        i = i.unsqueeze(1)
+        i = torch.nn.functional.interpolate(
+            i, scale_factor=scale_ratio, mode=interpolation
+        )
+        temp_list.append(i)
+    image_encodings = torch.cat(temp_list, dim=1)
+
+    image_encodings = rearrange(image_encodings, "b d h w -> b h w d")
+    similarity = image_encodings @ label_encodings.T
+    similarity = rearrange(similarity, "b h w d-> b d h w")
+    if do_argmax:
+        similarity = torch.argmax(similarity, dim=1, keepdim=True).to(torch.float64)
+    return similarity
 
 
-def save_vis(image, label, prediction, save):
-    plt.figure(figsize=(12, 4))
-    plt.subplot(131)
-    plt.imshow(image)
-    plt.title("Image", fontdict={'fontsize': 28})
-    plt.axis("off")
-    plt.subplot(132)
-    plt.imshow(image)
-    plt.imshow(prediction, alpha=0.5)
-    plt.axis("off")
-    plt.title("Prediction", fontdict={'fontsize': 28})
-    plt.subplot(133)
-    vis_gt = label.copy()
-    vis_gt[vis_gt == 255] = 0
-    plt.imshow(vis_gt, cmap="tab20b", interpolation="nearest")
-    plt.axis("off")
-    plt.title("GT Label", fontdict={'fontsize': 28})
-    plt.tight_layout()
-    if save:
-        plt.savefig(save)
-    else:
-        plt.show()
-    plt.close()
+class PascalEvaluator:
 
+    def __init__(self, model, dataset, metric, opts):
 
-if __name__ == '__main__':
+        self.classes = voc_extended_classes
+        self._class_prompts = self.get_class_prompts()
+        self.class_embeddings = None
 
-    pred_list = glob.glob(f"/Users/kanchana/Downloads/results/*.npy")
-    data_dir = "/Users/kanchana/Downloads/VOCdevkit/VOC2012"
-    ds = PascalDataset(data_dir)
-    evaluator = PascalEvaluator()
-    save_path = ""
+        self.model = model
+        self.dataset = dataset
+        self.metric: PascalMIoU = metric
+        self.opts = opts
 
-    for pred_path in pred_list:
-        name = os.path.basename(pred_path).split(".")[0]
-        sample = ds[name]
-        new_size = sample[1].shape
+        self.dataloader = torch.utils.data.DataLoader(
+            dataset,
+            batch_size=opts.batch_size,
+            num_workers=opts.workers
+        )
 
-        pred = load_pred_from_npy(pred_path, new_size)
-        gt = sample[1]
+    def evaluate(self):
+        self.metric.reset()
 
-        save_vis(sample[0], sample[1], pred, f"{save_path}/{name}.png" if save_path else save_path)
+        if self.class_embeddings is None:
+            self.class_embeddings = self.get_class_embeddings()
 
-        evaluator.update(prediction=pred.astype(np.int32), label=gt.astype(np.int32))
+        autocast = get_autocast(self.opts.precision)
+        cast_dtype = get_cast_dtype(self.opts.precision)
 
-    res = evaluator.compute()
+        with torch.no_grad():
+            for images, target in tqdm(self.dataloader, unit_scale=self.opts.batch_size):
+                images = images.to(self.opts.device)
+                if cast_dtype is not None:
+                    images = images.to(dtype=cast_dtype)
+
+                with autocast():
+                    # predict
+                    image_features = self.model.encode_image(
+                        images, normalize=True, pool=False
+                    )[:, 1:]
+
+                similarity = get_similarity(image_features, self.class_embeddings,
+                                            target.shape, do_argmax=True)
+                similarity = similarity[:, 0, :, :]
+
+                pred = similarity.detach().to(torch.int64)  # .to(self.opts.device)
+                target = target.to(torch.int64)
+                # target = target.to(self.opts.device)
+
+                self.metric.update(pred, target)
+
+    def get_class_embeddings(self):
+        self.model.eval()
+        cls_names = [name.lower() for name in self._class_prompts.values()]
+        with torch.no_grad():
+            class_embeddings = self.model.text.encode(cls_names, convert_to_tensor=True)
+            class_embeddings = F.normalize(class_embeddings, dim=-1)
+            class_embeddings /= class_embeddings.norm()
+        return class_embeddings
+
+    def get_class_prompts(self):
+        class_prompts = {}
+        for idx, c in enumerate(self.classes):
+            if c.startswith(tuple("aeiou")):
+                class_prompts[idx] = f"a photo of an {c}"
+            else:
+                class_prompts[idx] = f"a photo of a {c}"
+        return class_prompts
