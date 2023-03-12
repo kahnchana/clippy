@@ -13,8 +13,7 @@ Our pre-trained checkpoint is provided [here](https://github.com/kahnchana/clipp
 ## Inference
 We present examples of using CLIPpy in the following notebooks:
 * [Basic inference](https://github.com/kahnchana/clippy/blob/master/notebooks/clippy.ipynb)
-* [ImageNet evaluation](https://github.com/kahnchana/clippy/blob/master/notebooks/evaluate.ipynb)
-* [PASCAL VOC evaluation](https://github.com/kahnchana/clippy/blob/master/notebooks/evaluate.ipynb)
+* [ImageNet & PASCAL VOC evaluation](https://github.com/kahnchana/clippy/blob/master/notebooks/evaluate.ipynb)
 * WaterBirds evaluation (TBA)
 
 ## Analysis
