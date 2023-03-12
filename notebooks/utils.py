@@ -79,3 +79,8 @@ def vis_prediction(sample_text, img_arr, similarity):
     colorbar = plt.colorbar(mappable, cax=cbar_ax, cmap=cmap, orientation="horizontal")
     colorbar.set_ticks(np.linspace(0, N, N))
     colorbar.set_ticklabels(sample_text)
+
+
+class DummyArgs:
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
