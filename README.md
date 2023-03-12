@@ -8,19 +8,19 @@ Refer to `requirements.txt`.
 
 ## Pre-trained Model
 We replicate the work in CLIPpy paper under scaled down settings (due to resource and compute limitations). We use the CC-12M dataset (some files missing due to download issues) and use a single node with 8 V100 GPUs for training. Training for 5000 iterations, we are able to reach close to the reported segmentation performance on PASCAL VOC dataset. 
-Our pre-trained checkpoint is provided [here]().  
+Our pre-trained checkpoint is provided [here](https://github.com/kahnchana/clippy/releases/download/v1.0/clippy_5k.pt).  
 
 ## Inference
 We present examples of using CLIPpy in the following notebooks:
-* Basic inference
-* ImageNet evaluation
-* PASCAL VOC evaluation
-* WaterBirds evaluation
+* [Basic inference](https://github.com/kahnchana/clippy/blob/master/notebooks/clippy.ipynb)
+* [ImageNet evaluation](https://github.com/kahnchana/clippy/blob/master/notebooks/evaluate.ipynb)
+* [PASCAL VOC evaluation](https://github.com/kahnchana/clippy/blob/master/notebooks/evaluate.ipynb)
+* WaterBirds evaluation (TBA)
 
 ## Analysis
 We provide some analysis on the feature space of CLIPpy. 
-* bird to different backgrounds vs average background
-* feature space visualization? 
+* bird to different backgrounds vs average background (TBA)
+* feature space visualization (TBA) 
 
 
 ## Training
