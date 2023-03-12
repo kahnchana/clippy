@@ -1,5 +1,5 @@
 # CLIPpy
-**Unofficial implementation of [CLIPpy paper](https://arxiv.org/abs/2210.09996)**
+**Unofficial implementation of [Perceptual Grouping in Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper.
 
 
 ## Setup
