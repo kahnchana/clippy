@@ -3,6 +3,7 @@ import matplotlib.cm as cm
 import matplotlib.colors as mcolors
 import numpy as np
 import torch
+import torchvision
 from einops import rearrange
 from matplotlib import pyplot as plt
 
@@ -84,3 +85,14 @@ def vis_prediction(sample_text, img_arr, similarity):
 class DummyArgs:
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+
+
+
+def get_transform(size=(224, 224)):
+    transform = torchvision.transforms.Compose([
+        torchvision.transforms.Resize(size),
+        torchvision.transforms.ToTensor(),
+        torchvision.transforms.Normalize(mean=(0.48145466, 0.4578275, 0.40821073),
+                                         std=(0.26862954, 0.26130258, 0.27577711))
+    ])
+    return transform
