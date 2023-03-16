@@ -4,7 +4,7 @@
 
 ## Demo
 * [Colab Notebook](https://colab.research.google.com/drive/1iObo3WQHqHpEwUGmyHHQpRrOUqHoOZPF?usp=sharing) 
-* [Gradio Demo](TBA)
+* [Gradio Demo](https://huggingface.co/spaces/kahnchana/clippy)
 
 ## Setup
 Refer to `requirements.txt`.
