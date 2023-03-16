@@ -2,6 +2,7 @@
 /data
 /checkpoints
 /notebooks
+/demo
 
 # MacOS & PyCharm
 .DS_store
