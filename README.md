@@ -3,8 +3,8 @@
 
 
 ## Demo
-* [Colab Notebook](https://colab.research.google.com/drive/1iObo3WQHqHpEwUGmyHHQpRrOUqHoOZPF?usp=sharing) 
 * [Gradio Demo](https://huggingface.co/spaces/kahnchana/clippy)
+* [Colab Notebook](https://colab.research.google.com/drive/1iObo3WQHqHpEwUGmyHHQpRrOUqHoOZPF?usp=sharing)
 
 ## Setup
 Refer to `requirements.txt`.
