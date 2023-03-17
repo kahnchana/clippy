@@ -58,7 +58,7 @@ torchrun --nproc_per_node 8 -m training.main \
 
 ```
 @article{clippy2022,
-  title={Perceptual Grouping in Vision-Language Models},
+  title={Perceptual Grouping in Contrastive Vision-Language Models},
   author={Kanchana Ranasinghe and Brandon McKinzie and Sachin Ravi and Yinfei Yang and Alexander Toshev and Jonathon Shlens},
   journal={ArXiv},
   year={2022},
