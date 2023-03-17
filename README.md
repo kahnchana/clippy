@@ -20,6 +20,12 @@ We present examples of using CLIPpy in the following notebooks:
 * [ImageNet & PASCAL VOC evaluation](https://github.com/kahnchana/clippy/blob/master/notebooks/evaluate.ipynb)
 * WaterBirds evaluation (TBA)
 
+## Results
+
+|        | ImageNet (acc) | VOC (mIoU) | VOC (JI) |
+|--------|----------------|------------|----------|
+| CLIPpy | 45.3           | 50.8       | 47.5     |
+
 ## Analysis
 We provide some analysis on the feature space of CLIPpy. 
 * bird to different backgrounds vs average background (TBA)
