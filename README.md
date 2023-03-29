@@ -1,10 +1,27 @@
 # CLIPpy
+
+	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-4)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-4?p=perceptual-grouping-in-vision-language-models)	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-5)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-5?p=perceptual-grouping-in-vision-language-models)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-6)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-6?p=perceptual-grouping-in-vision-language-models)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-on-pascal-1)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-pascal-1?p=perceptual-grouping-in-vision-language-models)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-3)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-3?p=perceptual-grouping-in-vision-language-models)
+
+
+
 **Unofficial implementation of [Perceptual Grouping in Contrastive Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper.
 
 
-## Demo
-* [Gradio Demo](https://huggingface.co/spaces/kahnchana/clippy)
-* [Colab Notebook](https://colab.research.google.com/drive/1iObo3WQHqHpEwUGmyHHQpRrOUqHoOZPF?usp=sharing)
+
+[Paper Link](https://arxiv.org/abs/2210.09996) | [Gradio Demo](https://huggingface.co/spaces/kahnchana/clippy) |  [Colab Notebook](https://colab.research.google.com/drive/1iObo3WQHqHpEwUGmyHHQpRrOUqHoOZPF?usp=sharing)
+
+
+> **Abstract:**
+>*Recent advances in zero-shot image recognition suggest that vision-language models learn generic visual representations with a high degree of semantic information that may be arbitrarily probed with natural language phrases. Understanding an image, however, is not just about understanding what content resides within an image, but importantly, where that content resides. In this work we examine how well vision-language models are able to understand where objects reside within an image and group together visually related parts of the imagery. We demonstrate how contemporary vision and language representation learning models based on contrastive losses and large web-based data capture limited object localization information. We propose a minimal set of modifications that results in models that uniquely learn both semantic and spatial information. We measure this performance in terms of zero-shot image recognition, unsupervised bottom-up and top-down semantic segmentations, as well as robustness analyses. We find that the resulting model achieves state-of-the-art results in terms of unsupervised segmentation, and demonstrate that the learned representations are uniquely robust to spurious correlations in datasets designed to probe the causal behavior of vision models.*
+
+<p align="center">
+  <img alt="intro_image" src=".github/intro.jpeg" width="70%"/>
+</p>
 
 ## Setup
 Refer to `requirements.txt`.
