@@ -10,6 +10,7 @@ from timm.models.vision_transformer import (
     checkpoint_filter_fn,
     checkpoint_seq,
     resolve_pretrained_cfg,
+    PatchEmbed
 )
 from torch import Tensor, nn
 
@@ -18,15 +19,25 @@ class BlankLayer(nn.Module):
     pass
 
 
+class CustomPatchEmbed(PatchEmbed):
+    def forward(self, x):
+        x = self.proj(x)
+        if self.flatten:
+            x = x.flatten(2).transpose(1, 2)  # BCHW -> BNC
+        x = self.norm(x)
+        return x
+
+
 class CustomViT(VisionTransformer):
     def __init__(
             self,
             *args,
             image_pooling="gmp",
+            embed_layer=CustomPatchEmbed,
             **kwargs,
     ):
         super(CustomViT, self).__init__(
-            *args, **kwargs
+            *args, embed_layer=embed_layer, **kwargs
         )
         self.image_pooling = image_pooling
 
