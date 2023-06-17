@@ -9,7 +9,7 @@
 
 
 
-**Unofficial implementation of [Perceptual Grouping in Contrastive Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper.
+**Implementation of [Perceptual Grouping in Contrastive Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper.
 
 
 
