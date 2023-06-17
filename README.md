@@ -72,7 +72,7 @@ torchrun --nproc_per_node 8 -m training.main \
 ```
 
 ## Citation
-
+If you find our work, this repository, or pretrained models useful, please consider giving a star :star: and citation.
 ```
 @article{clippy2022,
   title={Perceptual Grouping in Contrastive Vision-Language Models},
