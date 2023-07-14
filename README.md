@@ -1,4 +1,5 @@
-# CLIPpy
+# Perceptual Grouping in Vision-Language Models (ICCV '23)
+
 
 	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-4)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-4?p=perceptual-grouping-in-vision-language-models)	
