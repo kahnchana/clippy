@@ -1,4 +1,4 @@
-# Perceptual Grouping in Vision-Language Models (ICCV '23)
+# Perceptual Grouping in Contrastive Vision-Language Models (ICCV '23)
 
 
 	
