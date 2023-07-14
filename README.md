@@ -10,7 +10,7 @@
 
 
 
-**Implementation of [Perceptual Grouping in Contrastive Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper accepted at ICCV'23.
+**Implementation of [Perceptual Grouping in Contrastive Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper accepted at ICCV'23. Note that this repositary is an unofficial implementation replicating results in this paper. 
 
 
 
