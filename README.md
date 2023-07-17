@@ -10,7 +10,7 @@
 
 
 
-**Implementation of [Perceptual Grouping in Contrastive Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper accepted at ICCV'23. Note that this repositary is an unofficial implementation replicating results in this paper. 
+**Implementation of [Perceptual Grouping in Contrastive Vision-Language Models](https://arxiv.org/abs/2210.09996)** paper accepted at ICCV'23. 
 
 
 
@@ -73,7 +73,7 @@ torchrun --nproc_per_node 8 -m training.main \
 ```
 
 ## Citation
-If you find our work, this repository, or pretrained models useful, please consider giving a star :star: and citation.
+If you find our work, this repository, or pretrained models useful, please consider giving a star :star: and citation. Note that this repositary is an unofficial implementation replicating results in this paper. 
 ```
 @article{clippy2022,
   title={Perceptual Grouping in Contrastive Vision-Language Models},
