@@ -79,7 +79,6 @@ If you find our work, this repository, or pretrained models useful, please consi
   title={Perceptual Grouping in Contrastive Vision-Language Models},
   author={Kanchana Ranasinghe and Brandon McKinzie and Sachin Ravi and Yinfei Yang and Alexander Toshev and Jonathon Shlens},
   journal={2023 IEEE/CVF International Conference on Computer Vision (ICCV)},
-  year={2023},
-  volume={abs/2210.09996}
+  year={2023}
 }
 ```
