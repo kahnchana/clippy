@@ -8,7 +8,6 @@ from timm.models.vision_transformer import (
     VisionTransformer,
     build_model_with_cfg,
     checkpoint_filter_fn,
-    checkpoint_seq,
     resolve_pretrained_cfg,
     PatchEmbed
 )
@@ -65,10 +64,7 @@ class CustomViT(VisionTransformer):
         _, nc, h, w = x.shape
         x = self.patch_embed(x)
         x = self._pos_embed(x, w, h)
-        if self.grad_checkpointing and not torch.jit.is_scripting():
-            x = checkpoint_seq(self.blocks, x)
-        else:
-            x = self.blocks(x)
+        x = self.blocks(x)
         x = self.norm(x)
         return x
 
