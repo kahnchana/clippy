@@ -8,7 +8,6 @@ from timm.models.vision_transformer import (
     VisionTransformer,
     build_model_with_cfg,
     checkpoint_filter_fn,
-    resolve_pretrained_cfg,
     PatchEmbed
 )
 from torch import Tensor, nn
@@ -112,23 +111,16 @@ def _create_vision_transformer(variant, pretrained=False, **kwargs):
     if kwargs.get("features_only", None):
         raise RuntimeError("features_only not implemented for Vision Transformer models.")
 
-    pretrained_cfg = resolve_pretrained_cfg(
-        variant, pretrained_cfg=kwargs.pop("pretrained_cfg", None)
-    )
     model = build_model_with_cfg(
         CustomViT,
         variant,
         pretrained,
-        pretrained_cfg=pretrained_cfg,
-        pretrained_filter_fn=checkpoint_filter_fn,
-        pretrained_custom_load="npz" in pretrained_cfg["url"],
         **kwargs,
     )
     return model
 
 
-def vit_base_patch16_224(pretrained=False, variant="vit_base_patch16_224_dino", **kwargs):
-    """ViT-Base (ViT-B/16) /w DINO pretrained weights (no head) - https://arxiv.org/abs/2104.14294"""
+def vit_base_patch16_224(pretrained=False, variant="vit_base_patch16_224", **kwargs):
     model_kwargs = dict(patch_size=16, embed_dim=768, depth=12, num_heads=12, **kwargs)
     model = _create_vision_transformer(variant, pretrained=pretrained, **model_kwargs)
     return model
