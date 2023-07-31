@@ -8,7 +8,8 @@ from timm.models.vision_transformer import (
     VisionTransformer,
     build_model_with_cfg,
     checkpoint_filter_fn,
-    PatchEmbed
+    PatchEmbed,
+    resolve_pretrained_cfg
 )
 from torch import Tensor, nn
 
@@ -111,10 +112,16 @@ def _create_vision_transformer(variant, pretrained=False, **kwargs):
     if kwargs.get("features_only", None):
         raise RuntimeError("features_only not implemented for Vision Transformer models.")
 
+    pretrained_cfg = resolve_pretrained_cfg(
+        variant, pretrained_cfg=kwargs.pop("pretrained_cfg", None)
+    )
     model = build_model_with_cfg(
         CustomViT,
         variant,
         pretrained,
+        pretrained_cfg=pretrained_cfg,
+        pretrained_filter_fn=checkpoint_filter_fn,
+        pretrained_custom_load="npz" in pretrained_cfg["url"],
         **kwargs,
     )
     return model
