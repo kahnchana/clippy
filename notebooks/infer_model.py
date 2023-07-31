@@ -187,7 +187,7 @@ class CLIPpyModel(abc.ABC, torch.nn.Module):
         }
 
     def encode_text(self, prompts, **kwargs):
-        return self..text.encode(prompts, convert_to_tensor=True)
+        return self.text.encode(prompts, convert_to_tensor=True)
 
     def text_head(self, hidden_states: Tensor, input_id_masks: Tensor = None, **kwargs):
         return F.normalize(hidden_states, dim=-1, eps=self._divisor_eps).float()
