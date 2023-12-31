@@ -5,7 +5,6 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-4)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-4?p=perceptual-grouping-in-vision-language-models)	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-5)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-5?p=perceptual-grouping-in-vision-language-models)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-6)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-6?p=perceptual-grouping-in-vision-language-models)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-on-pascal-1)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-on-pascal-1?p=perceptual-grouping-in-vision-language-models)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/perceptual-grouping-in-vision-language-models/unsupervised-semantic-segmentation-with-3)](https://paperswithcode.com/sota/unsupervised-semantic-segmentation-with-3?p=perceptual-grouping-in-vision-language-models)
 
 
@@ -14,7 +13,7 @@
 
 
 
-[Paper Link](https://arxiv.org/abs/2210.09996) | [Gradio Demo](https://huggingface.co/spaces/kahnchana/clippy) |  [Colab Notebook](https://colab.research.google.com/drive/1iObo3WQHqHpEwUGmyHHQpRrOUqHoOZPF?usp=sharing)
+[Paper Link](https://arxiv.org/abs/2210.09996) | [Gradio Demo](https://huggingface.co/spaces/kahnchana/clippy) |  [Colab Notebook - PyTorch](https://colab.research.google.com/drive/1iObo3WQHqHpEwUGmyHHQpRrOUqHoOZPF?usp=sharing) | [Colab Notebook - JAX](https://colab.research.google.com/drive/15rBXWCVRMqf2g2Q8reWYQhZsXFiWL6kV?usp=sharing)
 
 
 > **Abstract:**
