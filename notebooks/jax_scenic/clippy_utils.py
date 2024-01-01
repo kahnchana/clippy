@@ -1,5 +1,6 @@
 """
-Repeat from /notebooks/utils. Allows standalone execution of this folder contents.
+Repeat from /notebooks/utils. Allows standalone axecution of this folder contents.
+Added normalize function. 
 """
 
 import matplotlib
@@ -83,3 +84,9 @@ def vis_prediction(sample_text, img_arr, similarity):
     colorbar = plt.colorbar(mappable, cax=cbar_ax, cmap=cmap, orientation="horizontal")
     colorbar.set_ticks(np.linspace(0, N, N))
     colorbar.set_ticklabels(sample_text)
+
+
+def normalize_image(img):
+  IMAGE_MEAN = np.array([0.48145466, 0.4578275, 0.40821073])
+  IMAGE_STD = np.array([0.26862954, 0.26130258, 0.27577711])
+  return (img - IMAGE_MEAN) / IMAGE_STD

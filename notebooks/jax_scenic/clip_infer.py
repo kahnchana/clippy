@@ -11,11 +11,9 @@ import jax
 import jax.numpy as jnp
 from flax import linen as nn
 
-from scenic.projects.baselines.clip import model as clip
-
 from transformers import FlaxT5EncoderModel, T5TokenizerFast, T5Config
 
-from clippy_utils import get_similarity, vis_prediction
+from clippy_utils import get_similarity, vis_prediction, normalize_image
 from layers import LayerNorm, Transformer
 
 # # Set the JAX backend to CPU
@@ -167,7 +165,7 @@ if __name__ == "__main__":
   img_arr = np.array(img)
   img_arr = np.expand_dims(img_arr, axis=0)
   image = img_arr / 255.0
-  image = clip.normalize_image(image)
+  image = normalize_image(image)
 
   sample_text = ["lantern", "girl", "background"]
   sample_prompts = [f"a photo of a {x}" for x in sample_text]
